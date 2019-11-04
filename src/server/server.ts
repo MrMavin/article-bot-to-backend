@@ -1,4 +1,5 @@
 import Express from 'express';
+import "reflect-metadata";
 import {botAuthentication} from "./controllers/botAuthentication";
 import {botPushStatus} from "./controllers/botPushStatus";
 import {systemStatus} from "./controllers/systemStatus";
