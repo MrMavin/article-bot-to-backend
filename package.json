@@ -1,12 +1,17 @@
 {
   "name": "article-bot-to-backend",
   "scripts": {
-    "run": "tsc && node ./dist/server.js",
+    "watch:tsc": "tsc -w",
+    "watch:express": "./node_modules/nodemon/bin/nodemon.js ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@types/express": "^4.17.2",
     "express": "^4.17.1",
     "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4",
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.5"
   }
 }
