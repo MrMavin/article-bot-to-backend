@@ -1,9 +1,15 @@
 import Express from 'express';
+import {botAuthentication} from "./controllers/botAuthentication";
+import {botPushStatus} from "./controllers/botPushStatus";
+import {systemStatus} from "./controllers/systemStatus";
 
 const express = Express();
 
-express.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+express.set('view engine', 'pug');
+express.set('views', './src/server/views');
+
+express.post('/bot/auth', botAuthentication);
+express.post('/bot/:token/pushStatus', botPushStatus);
+express.get('/', systemStatus);
 
 express.listen(3000);

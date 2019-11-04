@@ -1,12 +1,13 @@
 {
   "name": "article-bot-to-backend",
   "scripts": {
-    "watch:tsc": "tsc -w",
-    "watch:express": "./node_modules/nodemon/bin/nodemon.js ./dist/server.js",
+    "watch:ts": "tsc -w",
+    "watch:express": "./node_modules/nodemon/bin/nodemon.js ./dist/server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "pug": "^2.0.4",
     "typescript": "^3.6.4"
   },
   "devDependencies": {
