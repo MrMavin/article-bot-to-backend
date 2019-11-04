@@ -13,23 +13,34 @@ export class Pool{
         return this._hostname;
     }
 
-    getBots() {
-        const bots = redisClient.hvals(this._hostname);
-
-        if (_.isEmpty(bots)) {
+    async getBots(): Promise<Bot[]> {
+        return await new Promise((resolve, reject) => {
+            redisClient.hvals(this._hostname, (err, bots) => {
+                if (_.isNil(bots)) {
+                    reject();
+                }else{
+                    resolve(bots);
+                }
+            });
+        }).then((bots) => {
+            return _.map(_.toArray(bots), (bot: string) => {
+                return loadBotBySerializedClass(bot);
+            });
+        }).catch(() => {
             return [];
-        }
-
-        return _.map(_.toArray(bots), bot => {
-            return loadBotBySerializedClass(bot.toString());
         });
     }
 
-    removeDeadBots() {
-        _.map(this.getBots(), (bot: Bot) => {
-            if (!bot.isAlive()) {
-                bot.kill();
-            }
-        });
+    async removeDeadBots() {
+        const bots = await this.getBots();
+
+        await Promise.all(
+            _.map(bots, async (bot: Bot) => {
+                const isAlive = await bot.isAlive();
+
+                if (!isAlive) {
+                    bot.kill();
+                }
+            }));
     }
 }

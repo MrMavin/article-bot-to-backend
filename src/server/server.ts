@@ -6,6 +6,9 @@ import {systemStatus} from "./controllers/systemStatus";
 
 const express = Express();
 
+express.use(Express.json());
+express.use(Express.urlencoded({ extended: true }));
+
 express.set('view engine', 'pug');
 express.set('views', './src/server/views');
 

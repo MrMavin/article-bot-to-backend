@@ -2,4 +2,12 @@ html
  head
   title="Bot statuses"
  body
-  h1="H1"
+  each pool in pools
+   h1= pool.hostname
+   ul
+    each bot in pool.bots
+     li= bot.status
+    else
+     p No Bots!
+  else
+   p No Hosts!

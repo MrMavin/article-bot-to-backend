@@ -4,9 +4,9 @@ import {Bot} from "../models/Bot";
 import {validHostname} from "../config";
 
 export const botAuthentication = (req: Request, res: Response) => {
-    const hostname = _.get(req.params, 'hostname');
+    const hostname = req.header('X-Server-Hostname');
 
-    if (_.isEmpty(hostname)) {
+    if (_.isNil(hostname)) {
         return res.json({
             status: 'err',
             error: 'Please include the hostname',
@@ -22,6 +22,7 @@ export const botAuthentication = (req: Request, res: Response) => {
 
     const bot = new Bot(hostname);
 
+    bot.status = 'created';
     bot.gotHeartbeat();
 
     return res.json({
