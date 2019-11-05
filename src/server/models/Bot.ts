@@ -23,6 +23,7 @@ export class Bot{
     }
 
     get token(): string {
+        // first time getting the token?
         if (this._token.length <= 0) {
             this.generateToken();
         }
@@ -30,11 +31,29 @@ export class Bot{
         return this._token;
     }
 
+    /**
+     * Update the bot's heartbeat
+     *
+     * The heartbeat is the method that we use in order to keep
+     * the bot alive. This means that for every request that
+     * we receive from the bot we will update the heartbeat.
+     * The heartbeat is a flag in redis that has two
+     * minutes expiration time.
+     */
     public gotHeartbeat() {
         // two minutes heartbeat
         redisClient.set(this.getHeartbeatCacheKey(), "1", "EX", 60 * 2);
     }
 
+    /**
+     * Check if a bot is alive
+     *
+     * We will check for the heartbeat's cache key to exists.
+     * Since when we set it we've configured the expiration in
+     * two minutes, if it doesn't exists (so we didn't receive
+     * any request in the last two minutes) then the bot
+     * is considered dead.
+     */
     public async isAlive() {
         return await redisExists(this.getHeartbeatCacheKey());
     }
@@ -75,7 +94,13 @@ export const loadBotByToken = async (hostname: string, token: string): Promise<B
 
     const botAsJSONObject = JSON.parse(botAsJSONString.toString());
 
-    return plainToClass(Bot, botAsJSONObject);
+    const bot = plainToClass(Bot, botAsJSONObject);
+
+    // Update the bot's heartbeat in order to
+    // keep it alive for the backend
+    bot.gotHeartbeat();
+
+    return bot;
 };
 
 export const loadBotBySerializedClass = (serializedClass: string) => {

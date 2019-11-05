@@ -1,8 +1,9 @@
 {
   "name": "article-bot-to-backend",
   "scripts": {
-    "watch:ts": "tsc -w",
-    "watch:express": "./node_modules/nodemon/bin/nodemon.js ./dist/server/server.js",
+    "watch:ts": "./node_modules/typescript/bin/tsc -w",
+    "build": "./node_modules/typescript/bin/tsc",
+    "serve": "./node_modules/nodemon/bin/nodemon.js ./dist/server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
