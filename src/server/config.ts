@@ -6,6 +6,6 @@ export const availableHosts = [
     'bot-farm-3',
 ];
 
-export const validHostname = (hostname: string) => {
+export const validHostname = (hostname: string): boolean => {
     return _.includes(availableHosts, hostname);
 };

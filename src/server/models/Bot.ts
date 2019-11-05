@@ -1,5 +1,5 @@
 import {randomBytes} from "crypto";
-import {redisClient} from "../libraries/redis";
+import {redisClient, redisExists, redisHGET} from "../libraries/redis";
 import {classToPlain, plainToClass} from "class-transformer";
 
 export class Bot{
@@ -31,22 +31,19 @@ export class Bot{
     }
 
     public gotHeartbeat() {
-        redisClient.set(this.getHeartbeatCacheKey(), "1", "EX", 60 * 2); // two minutes
+        // two minutes heartbeat
+        redisClient.set(this.getHeartbeatCacheKey(), "1", "EX", 60 * 2);
     }
 
     public async isAlive() {
-        return new Promise((resolve, reject) => {
-            redisClient.exists(this.getHeartbeatCacheKey(), (err, res) => {
-                if (res === 0) {
-                    resolve(false);
-                }else{
-                    resolve(true);
-                }
-            });
-        });
+        return await redisExists(this.getHeartbeatCacheKey());
     }
 
     public save() {
+        // getting the token will generate it if
+        // it doesn't exists. This way the class
+        // will be converted with all the necessary
+        // data
         const token = this.token;
 
         const plainClass = classToPlain(this);
@@ -55,7 +52,7 @@ export class Bot{
         redisClient.hset(this.hostname, token, strObject);
     }
 
-    public kill() {
+    public kill(): void {
         redisClient.del(this.getHeartbeatCacheKey());
         redisClient.hdel(this.hostname, this._token);
     }
@@ -69,8 +66,8 @@ export class Bot{
     }
 }
 
-export const loadBotByToken = (hostname: string, token: string): Bot | false => {
-    const botAsJSONString = redisClient.hget(hostname, token);
+export const loadBotByToken = async (hostname: string, token: string): Promise<Bot | false> => {
+    const botAsJSONString = await redisHGET(hostname, token);
 
     if (!botAsJSONString) {
         return false;

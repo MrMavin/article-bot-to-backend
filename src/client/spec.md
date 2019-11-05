@@ -2,6 +2,6 @@
 
 ## Actions
 
-- Authenticate to the backend
-- Change state randomly (simulating internal operations)
-- Send exit status
+- Authenticate to the backend [V]
+- Change state randomly (simulating internal operations) [V]
+- Send exit status [V]

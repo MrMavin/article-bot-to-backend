@@ -1,13 +1,15 @@
 html
  head
   title="Bot statuses"
+  meta(http-equiv="refresh" content="3")
  body
   each pool in pools
-   h1= pool.hostname
-   ul
-    each bot in pool.bots
-     li= bot.status
-    else
-     p No Bots!
+   div(style="float: left; margin: 0 20px;")
+    h1= pool.hostname
+    ul
+     each bot in pool.bots
+      li= bot.status
+     else
+      p No Bots!
   else
    p No Hosts!

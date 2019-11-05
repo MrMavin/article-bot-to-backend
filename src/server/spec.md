@@ -2,10 +2,10 @@
 
 ## Operations
 
-- Authenticate bot
-- Change bot status
-- Show system status
+- Authenticate bot [V]
+- Change bot status [V]
+- Show system status [V]
 
 ## Modules
 
-- Redis hash-map
+- Redis (hash-map functions) [V]
