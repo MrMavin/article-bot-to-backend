@@ -1,14 +1,17 @@
 # Case Study: authenticate bot farms to a backend
 
-My last project was about automation.
-At some point I've scaled the application
+My last project was about automation for Instagram
+that at some point had the need to be scalable
 to 400+ bots that were running in
 different servers.
 
 I was in need for a solution to receive data from
-these bots. The first thing that came up in my mind
-was a client-server model using sockets. Unfortunately
-I had a short deadline and I had a RESTFul API
+these bots, monitor them and associate profiles
+to bot instances.
+The first thing that came up in my mind
+was a client-server model using sockets.
+Unfortunately I had a short deadline
+and I had a RESTFul API
 structure ready to be used.
 
 This is why I've chosen `redis` to fulfil my needs.
@@ -16,6 +19,8 @@ Due to its speed in data storing and retrieving,
 I've simulated a workflow similar to the client-server
 model. This project is a small implementation
 of this solution.
+
+[Click here to read the full article](https://blog.mavin.dev/article-bots-to-backend)
 
 ## Prerequisites
 
