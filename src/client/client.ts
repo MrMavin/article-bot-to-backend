@@ -1,4 +1,4 @@
-import {apiAuthenticate, apiChangeStatus} from "./api";
+import {apiAuthenticate, apiChangeStatus, apiHeartBeat} from "./api";
 import {waitSeconds} from "./helpers";
 import _ from "lodash";
 
@@ -8,10 +8,15 @@ import _ from "lodash";
 
         for (let i = 0; i < 10; i++) {
             await waitSeconds(_.random(4, 8));
+            // heartbeat is not useful since the change status
+            // api will also fire gotHeartbeat
+            // await apiHeartBeat();
             await apiChangeStatus();
         }
 
         await waitSeconds(_.random(4, 8));
+        // same as above
+        // await apiHeartBeat();
         await apiChangeStatus('dead');
 
         process.exit();

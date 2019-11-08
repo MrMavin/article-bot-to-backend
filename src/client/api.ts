@@ -20,6 +20,10 @@ export const apiAuthenticate = async () => {
     };
 };
 
+export const apiHeartBeat = async (status: string = '') => {
+    await axiosInstance.get('/bot/heartbeat');
+};
+
 export const apiChangeStatus = async (status: string = '') => {
     if (_.isEmpty(status)) {
         status = randomStatus();

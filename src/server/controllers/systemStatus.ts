@@ -10,6 +10,9 @@ export const systemStatus = async (req: Request, res: Response) => {
         _.map(availableHosts, async (host: string) => {
             const pool = new Pool(host);
 
+            // we're firing removeDeadBots here
+            // because in this use case it's better
+            // than configuring the cronjob
             await pool.removeDeadBots();
 
             pools.push({
