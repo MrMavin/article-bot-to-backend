@@ -1,10 +1,10 @@
 {
-  "name": "article-bot-to-backend",
+  "name": "article-bots-to-backend",
   "scripts": {
-    "watch:ts": "./node_modules/typescript/bin/tsc -w",
-    "build": "./node_modules/typescript/bin/tsc",
-    "serve": "./node_modules/nodemon/bin/nodemon.js ./dist/server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch-ts": "tsc -w",
+    "watch-express": "nodemon ./dist/server/server.js",
+    "watch": "concurrently -k \"npm:watch-*\"",
+    "start": "npm run watch"
   },
   "dependencies": {
     "@types/lodash": "^4.14.144",
@@ -21,6 +21,7 @@
     "@types/express": "^4.17.2",
     "@types/node": "^12.12.5",
     "@types/redis": "^2.8.14",
+    "concurrently": "^5.0.0",
     "nodemon": "^1.19.4"
   }
 }

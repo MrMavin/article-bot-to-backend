@@ -1,4 +1,4 @@
-# Case Study: authenticate bot farms to a backend
+# Case Study: authenticate bot farms to the backend
 
 My last project was about automation for Instagram
 that at some point had the need to be scalable
@@ -34,7 +34,6 @@ Before you continue, ensure you meet the following requirements:
 ## How to run
 
 * Install `node_modules` by running `npm install`
-* Build `typescript` source code by running `npm run build`
-* Serve the web app by running `npm run serve`
+* Serve the web app by running `npm run start`
 * Visit `http://localhost:3000/` and make sure that you can see the first three allowed hosts
 * Run the bots by running `sh ./scripts/run_many_clients.sh`
